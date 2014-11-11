@@ -1,29 +1,21 @@
-require 'selenium-webdriver'
-require './spec_helper'
+require 'spec_helper'
 
-describe "Example nr 1" do
+describe 'Example nr 1' do
     attr_reader :selenium_driver
   before(:all) do
       @driver = Selenium::WebDriver.for :firefox
-      @driver.navigate.to "http://amazon.co.uk"
+      @driver.manage.window.maximize
+      @driver.navigate.to 'http://amazon.co.uk'
   end
-
-# before(:each) do
-#    @selenium_driver.start_new_browser_session
-#  end
-
-#  after(:each) do
-#    @selenium_driver.close_current_browser_session
-#  end
 
   after(:all) do
       @driver.quit
   end
 
-   it "can find the right title" do
-    expect(@driver.title).to eql("Amazon.co.uk: Low Prices in Electronics, Books, Sports Equipment & more")
+   it 'buy iphon5 and iphone6 and check if they are in cart' do
+    expect(@driver.title).to eql('Amazon.co.uk: Low Prices in Electronics, Books, Sports Equipment & more')
     searchBox = @driver.find_element(:id ,'twotabsearchtextbox')
-    searchBox.send_keys "Iphone 5"
+    searchBox.send_keys 'Iphone 5'
     searchBox.submit
     sleep(5)
 
@@ -37,7 +29,7 @@ describe "Example nr 1" do
     sleep (5)
 
     searchBox = @driver.find_element(:id ,'twotabsearchtextbox')
-    searchBox.send_keys "Iphone 6"
+    searchBox.send_keys 'Iphone 6'
     searchBox.submit
     sleep(5)
 
@@ -52,8 +44,7 @@ describe "Example nr 1" do
 
     kupioneRzeczy = @driver.find_elements(:css, 'span.sc-product-title')
 
-    kupioneRzeczy.any? {|item| ["Apple iPhone 5","Apple iPhone 6"].include?(item.text)}
-
+    kupioneRzeczy.any? {|item| ['Apple iPhone 5','Apple iPhone 6'].include?(item.text)}
   end
 
 end
